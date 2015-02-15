@@ -1,0 +1,2 @@
+In order to build this package, cd into the main "pulseaudio folder", and run the command below.
+node-gyp --python python2 build
