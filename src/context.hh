@@ -34,6 +34,8 @@ namespace pulse {
     void info(InfoType infotype, Handle<Function> callback);
 		void loadmodule(String::Utf8Value *module_name, String::Utf8Value *argument_list, Handle<Function> callback);
 		void unloadmodule(int index, Handle<Function> callback);
+
+		void set_source_volume_by_name(String::Utf8Value *source_name, uint32_t volume, Handle<Function> callback);
   public:
     static pa_mainloop_api mainloop_api;
     
@@ -48,7 +50,7 @@ namespace pulse {
 
 		static Handle<Value> LoadModule(const Arguments& args);
 		static Handle<Value> UnloadModule(const Arguments& args);
-
+		static Handle<Value> SetSourceVolumeByName(const Arguments& args);
   };
 }
 

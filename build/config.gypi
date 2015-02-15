@@ -33,9 +33,8 @@
     "v8_no_strict_aliasing": 1,
     "v8_use_snapshot": "true",
     "want_separate_host_toolset": 0,
-    "nodedir": "/home/djcinnamon/.node-gyp/0.10.32",
+    "nodedir": "/home/djcinnamon/.node-gyp/0.10.33",
     "copy_dev_lib": "true",
-    "standalone_static_library": 1,
-    "o": "true"
+    "standalone_static_library": 1
   }
 }

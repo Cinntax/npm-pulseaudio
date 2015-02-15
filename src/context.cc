@@ -179,7 +179,8 @@ namespace pulse {
     p->Return();
 
 	}
-	static void UnloadModuleSuccessCallback(pa_context *c, int success, void *userdata){
+
+	static void SuccessCallback(pa_context *c, int success, void *userdata){
 		Pending *p = static_cast<Pending*>(userdata);
 
     if(!p->Args()){
@@ -201,9 +202,18 @@ namespace pulse {
 
 	void Context::unloadmodule(int index, Handle<Function> callback){
 		Pending *p = new Pending(handle_, callback);
-		pa_context_unload_module(pa_ctx, index, UnloadModuleSuccessCallback, p);
+		pa_context_unload_module(pa_ctx, index, SuccessCallback, p);
 	} 
-  
+	
+	void Context::set_source_volume_by_name(String::Utf8Value *source_name, uint32_t volume, Handle<Function> callback){
+		Pending *p = new Pending(handle_, callback);
+		pa_cvolume *vol_struct = new pa_cvolume();
+		vol_struct->channels = 2;
+		vol_struct->values[0] = volume;
+		vol_struct->values[1] = volume;
+		
+		pa_context_set_source_volume_by_name(pa_ctx, ToCString(*source_name), vol_struct, SuccessCallback, p);
+	}  
   /* bindings */
   
   void
@@ -220,6 +230,7 @@ namespace pulse {
     SetPrototypeMethod(tpl, "info", Info);
 		SetPrototypeMethod(tpl, "loadmodule", LoadModule);
 		SetPrototypeMethod(tpl, "unloadmodule", UnloadModule);
+		SetPrototypeMethod(tpl, "set_source_volume_by_name", SetSourceVolumeByName);
     
     Local<Function> cfn = tpl->GetFunction();
     
@@ -370,6 +381,23 @@ namespace pulse {
 
     JS_ASSERT(ctx);
     ctx->unloadmodule(args[0]->Uint32Value(), args[1].As<Function>());
+    return scope.Close(Undefined());
+  }
+
+	Handle<Value>
+  Context::SetSourceVolumeByName(const Arguments& args){
+    HandleScope scope;
+    JS_ASSERT(args.Length() > 2); //Must pass in a source name, a volume integer, and a callback.
+		JS_ASSERT(args[0]->IsString());
+		//JS_ASSERT(args[1]->IsUint32());
+    JS_ASSERT(args[2]->IsFunction());
+		
+		String::Utf8Value *source_name = new String::Utf8Value(args[0]->ToString());
+
+    Context *ctx = ObjectWrap::Unwrap<Context>(args.This());
+
+    JS_ASSERT(ctx);
+    ctx->set_source_volume_by_name(source_name, args[1]->Uint32Value(), args[2].As<Function>());
     return scope.Close(Undefined());
   }
 

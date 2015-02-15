@@ -32,9 +32,9 @@ CFLAGS_CC_Debug := \
 	-fno-exceptions
 
 INCS_Debug := \
-	-I/home/djcinnamon/.node-gyp/0.10.32/src \
-	-I/home/djcinnamon/.node-gyp/0.10.32/deps/uv/include \
-	-I/home/djcinnamon/.node-gyp/0.10.32/deps/v8/include
+	-I/home/djcinnamon/.node-gyp/0.10.33/src \
+	-I/home/djcinnamon/.node-gyp/0.10.33/deps/uv/include \
+	-I/home/djcinnamon/.node-gyp/0.10.33/deps/v8/include
 
 DEFS_Release := \
 	'-D_LARGEFILE_SOURCE' \
@@ -66,9 +66,9 @@ CFLAGS_CC_Release := \
 	-fno-exceptions
 
 INCS_Release := \
-	-I/home/djcinnamon/.node-gyp/0.10.32/src \
-	-I/home/djcinnamon/.node-gyp/0.10.32/deps/uv/include \
-	-I/home/djcinnamon/.node-gyp/0.10.32/deps/v8/include
+	-I/home/djcinnamon/.node-gyp/0.10.33/src \
+	-I/home/djcinnamon/.node-gyp/0.10.33/deps/uv/include \
+	-I/home/djcinnamon/.node-gyp/0.10.33/deps/v8/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/context.o \
