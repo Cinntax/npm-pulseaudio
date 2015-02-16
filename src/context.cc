@@ -119,7 +119,8 @@ namespace pulse {
       field(Boolean, mute);
       field(Number, latency);
       field(String, driver);
-      
+     	info->Set(String::NewSymbol("volume"), Number::New(i->volume.values[0]));
+ 
       Handle<Array> list = p->argv[0].As<Array>();
       
       list->Set(list->Length(), info);
